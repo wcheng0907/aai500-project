@@ -14,29 +14,6 @@ def validate_data_columns(data):
 
     return True
 
-def split_training_testing(source_filename):
-    source = DIRECTORY_PATH + "/" + source_filename
-    with open(source, "r") as f:
-        lines = f.readlines()
-
-    lines = lines[1:]
-    data_count = len(lines)
-    training_data_count = round(data_count * 0.8)
-
-    # we slipt data to 80% training data and 20% testing data
-    # write training data
-    training_file = DIRECTORY_PATH + "/" + TRAINING
-    with open(training_file, "w") as f:
-        for i in range(training_data_count):
-            f.write(lines[i])
-
-    # write testing data
-    testing_file = DIRECTORY_PATH + "/" + TESTING
-    with open(testing_file, "w") as f:
-        for i in range(training_data_count + 1, data_count):
-            f.write(lines[i])
-
-
 def shuffle_data(source_filename, destination_filename):
     source = DIRECTORY_PATH + "/" + source_filename
     with open(source, "r") as f:
@@ -100,7 +77,6 @@ def main():
     filenames = read_data_filename()
     parse_data(filenames, TMP_OUTPUT_FILENAME, DIRECTORY_PATH)
     shuffle_data(TMP_OUTPUT_FILENAME, OUTPUT_FILENAME)
-    split_training_testing(OUTPUT_FILENAME)
 
 if __name__ == "__main__":
     main()
